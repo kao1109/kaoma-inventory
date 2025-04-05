@@ -1,0 +1,302 @@
+[
+  {
+    "product": "Helios \t水瓶 灰色  250ml",
+    "quantity": 3,
+    "cost": 581,
+    "price": 780,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "34.3%"
+  },
+  {
+    "product": "Helios \t水瓶 橄欖綠 250ml",
+    "quantity": 3,
+    "cost": 581,
+    "price": 780,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "34.3%"
+  },
+  {
+    "product": "Helios \t水瓶 紅色 750ml",
+    "quantity": 3,
+    "cost": 666,
+    "price": 900,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "35.1%"
+  },
+  {
+    "product": "Helios \t水瓶 橄欖綠 750ml",
+    "quantity": 3,
+    "cost": 666,
+    "price": 900,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "35.1%"
+  },
+  {
+    "product": "Helios \t水瓶 橄欖綠 750ml",
+    "quantity": 2,
+    "cost": 666,
+    "price": 900,
+    "type": "out",
+    "supplier": "SD-RACCOON",
+    "profit": 468,
+    "margin": "35.1%"
+  },
+  {
+    "product": "Helios \t水瓶 白色 750ml",
+    "quantity": 3,
+    "cost": 666,
+    "price": 900,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "35.1%"
+  },
+  {
+    "product": "Helios \t水瓶 白色 750ml",
+    "quantity": 1,
+    "cost": 666,
+    "price": 900,
+    "type": "out",
+    "supplier": "SD-RACCOON",
+    "profit": 234,
+    "margin": "35.1%"
+  },
+  {
+    "product": "KAFFEEFORM Cup Tumbler 隨行杯 NU",
+    "quantity": 1,
+    "cost": 610,
+    "price": 854,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "40.0%"
+  },
+  {
+    "product": "KAFFEEFORM Cup Tumbler 隨行杯 CR",
+    "quantity": 1,
+    "cost": 610,
+    "price": 854,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "40.0%"
+  },
+  {
+    "product": "KAFFEEFORM Cup Tumbler 隨行杯 NU（高款）",
+    "quantity": 1,
+    "cost": 673,
+    "price": 942,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "40.0%"
+  },
+  {
+    "product": "KAFFEEFORM Cup Tumbler 隨行杯 CR（高款）",
+    "quantity": 1,
+    "cost": 673,
+    "price": 942,
+    "type": "in",
+    "supplier": "SD-RACCOON",
+    "profit": 0,
+    "margin": "40.0%"
+  },
+  {
+    "product": "日製木盒筷子禮盒（雙人組）",
+    "quantity": 1,
+    "cost": 2755,
+    "price": 2610,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "美濃燒馬克杯雙入禮盒",
+    "quantity": 1,
+    "cost": 1818,
+    "price": 1723,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.2%"
+  },
+  {
+    "product": "日製長方烤盤 23×15cm（布朗尼棕）",
+    "quantity": 1,
+    "cost": 1102,
+    "price": 1044,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "日製長方烤盤 23×15cm（奶油白）",
+    "quantity": 1,
+    "cost": 1102,
+    "price": 1044,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "美濃燒單口花器（藍花）",
+    "quantity": 1,
+    "cost": 1102,
+    "price": 1044,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "美濃燒收納罐（白色）",
+    "quantity": 1,
+    "cost": 1046,
+    "price": 992,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.2%"
+  },
+  {
+    "product": "美濃燒馬克杯雙入禮盒（粉紅組）",
+    "quantity": 1,
+    "cost": 1928,
+    "price": 1827,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.2%"
+  },
+  {
+    "product": "復古喫茶店馬克杯（紅色）",
+    "quantity": 1,
+    "cost": 802,
+    "price": 761,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "復古喫茶店馬克杯（綠色）",
+    "quantity": 1,
+    "cost": 802,
+    "price": 761,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "復古喫茶店馬克杯（淺藍色）",
+    "quantity": 1,
+    "cost": 802,
+    "price": 761,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "復古喫茶店馬克杯（黃色）",
+    "quantity": 1,
+    "cost": 802,
+    "price": 761,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "日製主餐盤 23.5cm（白色）",
+    "quantity": 5,
+    "cost": 555,
+    "price": 527,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.0%"
+  },
+  {
+    "product": "日製主餐盤 23.5cm（海軍藍）",
+    "quantity": 5,
+    "cost": 555,
+    "price": 527,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.0%"
+  },
+  {
+    "product": "美濃燒手縫紋小盤 12cm（黑色）",
+    "quantity": 5,
+    "cost": 606,
+    "price": 574,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "日製烤皿 15cm（咖啡棕）",
+    "quantity": 3,
+    "cost": 1102,
+    "price": 1044,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.3%"
+  },
+  {
+    "product": "鯨魚杯／企鵝款（守護環境）",
+    "quantity": 1,
+    "cost": 991,
+    "price": 940,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "鯨魚杯／鯨魚款（幸福邂逅）",
+    "quantity": 1,
+    "cost": 991,
+    "price": 940,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "鯨魚杯／乳牛款（自然生活）",
+    "quantity": 1,
+    "cost": 991,
+    "price": 940,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.1%"
+  },
+  {
+    "product": "美濃燒方形主餐盤 15×15cm（白色）",
+    "quantity": 1,
+    "cost": 771,
+    "price": 731,
+    "type": "in",
+    "supplier": "AITO",
+    "profit": 0,
+    "margin": "-5.2%"
+  }
+]

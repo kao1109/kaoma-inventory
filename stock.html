@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>KAOMA 庫存表</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      padding: 30px;
+      background-color: #f8f8f8;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    .section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+
+    button {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #3498db;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ecf0f1;
+    }
+  </style>
+</head>
+<body>
+  <h2>📦 KAOMA 商品庫存表</h2>
+  <div class="section">
+    <button onclick="exportStockSummary()">匯出 CSV</button>
+    <table>
+      <thead>
+        <tr><th>商品名稱</th><th>現有庫存</th></tr>
+      </thead>
+      <tbody id="stockSummaryBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let records = JSON.parse(localStorage.getItem('inventory_records') || '[]');
+
+    function getStockSummary() {
+      const summary = {};
+      records.forEach(r => {
+        if (!summary[r.product]) summary[r.product] = 0;
+        if (r.type === 'in') summary[r.product] += r.quantity;
+        else if (r.type === 'out') summary[r.product] -= r.quantity;
+      });
+      return summary;
+    }
+
+    function displayStockSummary() {
+      const summary = getStockSummary();
+      const tbody = document.getElementById('stockSummaryBody');
+      tbody.innerHTML = '';
+      Object.entries(summary).forEach(([product, qty]) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${product}</td><td>${qty}</td>`;
+        tbody.appendChild(row);
+      });
+    }
+
+    function exportStockSummary() {
+      const summary = getStockSummary();
+      let csv = '商品名稱,現有庫存\n';
+      Object.entries(summary).forEach(([product, qty]) => {
+        csv += `${product},${qty}\n`;
+      });
+      const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'stock_summary.csv';
+      link.click();
+    }
+
+    window.addEventListener('DOMContentLoaded', displayStockSummary);
+  </script>
+</body>
+</html>
