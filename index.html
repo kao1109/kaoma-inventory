@@ -150,7 +150,7 @@
     </label><br>
     <button onclick="addRecord()">送出</button>
     <button onclick="exportCSV()" class="btn-secondary">匯出 CSV</button>
-    <button onclick="backupWithFileSystemAPI()" class="btn-secondary">備份到檔案</button>
+    <button onclick="backupToFile()" class="btn-secondary">備份到手機</button>
     <input type="file" id="restoreInput" style="display:none" accept="application/json">
     <button onclick="document.getElementById('restoreInput').click()" class="btn-secondary">還原備份</button>
     <a href="stock.html" target="_blank"><button class="btn-secondary">查看庫存表（新頁面）</button></a>
@@ -181,6 +181,19 @@
       localStorage.setItem('inventory_records', JSON.stringify(records));
     }
 
+    function backupToFile() {
+      const json = JSON.stringify(records, null, 2);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "inventory_backup.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
     document.getElementById('restoreInput').addEventListener('change', (event) => {
       const file = event.target.files[0];
       if (!file) return;
@@ -198,7 +211,177 @@
       reader.readAsText(file);
     });
 
-    // 其餘函式（toggleFields、fetchStockData、addRecord、bulkImport、editRecord、deleteRecord、updateReport、exportCSV）不變，可保留原來內容
+    function toggleFields() {
+      const type = document.getElementById('type').value;
+      document.getElementById('cost').disabled = type === 'out';
+      document.getElementById('supplier').disabled = type === 'out';
+      fetchStockData();
+    }
+
+    function fetchStockData() {
+      const productName = document.getElementById('product').value.trim();
+      const productRecord = records.find(record => record.product === productName && record.type === 'in');
+      if (productRecord) {
+        document.getElementById('cost').value = productRecord.cost.toFixed(2);
+        document.getElementById('supplier').value = productRecord.supplier;
+        document.getElementById('quantity').value = '';
+      } else {
+        document.getElementById('cost').value = '';
+        document.getElementById('supplier').value = '';
+        document.getElementById('quantity').value = '';
+      }
+    }
+
+    function addRecord(record) {
+      let product, quantity, cost, price, type, supplier;
+      if (record) {
+        ({ product, quantity, cost, price, type, supplier } = record);
+      } else {
+        product = document.getElementById('product').value.trim();
+        quantity = parseInt(document.getElementById('quantity').value);
+        cost = parseFloat(document.getElementById('cost').value);
+        price = parseFloat(document.getElementById('price').value);
+        supplier = document.getElementById('supplier').value.trim();
+        type = document.getElementById('type').value;
+      }
+
+      if (!product || isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0 || (type === 'in' && (isNaN(cost) || cost <= 0 || !supplier))) {
+        alert('請輸入正確的商品名稱、數量、成本、售價與供應商');
+        return;
+      }
+
+      if (type === 'out') {
+        const currentStock = calculateCurrentStock(product);
+        if (quantity > currentStock) {
+          alert(`庫存不足，現有庫存僅剩 ${currentStock} 件`);
+          return;
+        }
+      }
+
+      const profit = (price - cost) * (type === 'out' ? quantity : 0);
+      const margin = cost > 0 ? ((price - cost) / cost * 100).toFixed(1) + '%' : '-';
+
+      const recordData = { product, quantity, cost, price, type, supplier, profit, margin };
+      records.push(recordData);
+      saveToLocalStorage();
+      updateReport();
+
+      if (!record) {
+        document.getElementById('product').value = '';
+        document.getElementById('quantity').value = '';
+        document.getElementById('cost').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('supplier').value = '';
+      }
+    }
+
+    function calculateCurrentStock(productName) {
+      let stock = 0;
+      records.forEach(r => {
+        if (r.product === productName) {
+          if (r.type === 'in') stock += r.quantity;
+          else if (r.type === 'out') stock -= r.quantity;
+        }
+      });
+      return stock;
+    }
+
+    function bulkImport() {
+      const text = document.getElementById('bulkInput').value.trim();
+      const lines = text.split('\n');
+      lines.forEach(line => {
+        const [product, quantity, cost, price, supplier, type] = line.split(',').map(x => x.trim());
+        if (product && quantity && type && supplier) {
+          if (isNaN(quantity) || isNaN(cost) || isNaN(price)) {
+            alert(`匯入資料格式錯誤: ${line}`);
+            return;
+          }
+          addRecord({
+            product,
+            quantity: parseInt(quantity),
+            cost: parseFloat(cost),
+            price: parseFloat(price),
+            supplier,
+            type
+          });
+        } else {
+          alert(`格式錯誤: ${line}`);
+        }
+      });
+      document.getElementById('bulkInput').value = '';
+    }
+
+    function deleteRecord(index) {
+      if (confirm('確定要刪除這筆記錄嗎？')) {
+        records.splice(index, 1);
+        saveToLocalStorage();
+        updateReport();
+      }
+    }
+
+    function editRecord(index) {
+      const r = records[index];
+      document.getElementById('product').value = r.product;
+      document.getElementById('quantity').value = r.quantity;
+      document.getElementById('cost').value = r.cost;
+      document.getElementById('price').value = r.price;
+      document.getElementById('supplier').value = r.supplier;
+      document.getElementById('type').value = r.type;
+      records.splice(index, 1);
+      saveToLocalStorage();
+      updateReport();
+    }
+
+    function updateReport() {
+      const reportBody = document.getElementById('report');
+      const fragment = document.createDocumentFragment();
+
+      records.forEach((r, index) => {
+        const profit = (r.price - r.cost) * (r.type === 'out' ? r.quantity : 0);
+        const margin = r.cost > 0 ? ((r.price - r.cost) / r.cost * 100).toFixed(1) + '%' : '-';
+        const currentStock = calculateCurrentStock(r.product);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${r.product}</td>
+          <td>${r.type === 'in' ? r.quantity : ''}</td>
+          <td>${r.type === 'out' ? r.quantity : ''}</td>
+          <td>${currentStock}</td>
+          <td>${(r.cost || 0).toFixed(2)}</td>
+          <td>${(r.price || 0).toFixed(2)}</td>
+          <td>${r.supplier}</td>
+          <td>${r.type === 'in' ? '進貨' : '出貨'}</td>
+          <td>${profit.toFixed(2)}</td>
+          <td>${r.type === 'out' ? margin : '-'}</td>
+          <td>
+            <button onclick="editRecord(${index})">修改</button>
+            <button onclick="deleteRecord(${index})">刪除</button>
+          </td>
+        `;
+        fragment.appendChild(row);
+      });
+
+      reportBody.innerHTML = '';
+      reportBody.appendChild(fragment);
+    }
+
+    function exportCSV() {
+      let csvContent = '商品,數量,成本,售價,供應商,類型,利潤,利潤率\n';
+      records.forEach(r => {
+        const profit = (r.price - r.cost) * (r.type === 'out' ? r.quantity : 0);
+        const margin = r.cost > 0 ? ((r.price - r.cost) / r.cost * 100).toFixed(1) + '%' : '-';
+        csvContent += `${r.product},${r.quantity},${r.cost},${r.price},${r.supplier},${r.type},${profit.toFixed(2)},${r.type === 'out' ? margin : '-'}\n`;
+      });
+      const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'inventory_report.csv';
+      link.click();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateReport();
+    });
   </script>
 </body>
 </html>
