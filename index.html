@@ -1,15 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-<link rel="manifest" href="manifest.json">
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-  }
-</script>
-
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
   <title>KAOMA 庫存系統</title>
   <style>
     body {
@@ -17,6 +15,7 @@
       padding: 30px;
       background-color: #f8f8f8;
       color: #333;
+      line-height: 1.6;
     }
 
     h2, h3, h4 {
@@ -26,10 +25,10 @@
 
     input, button, select, textarea {
       margin: 5px 10px 10px 0;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     textarea {
@@ -67,6 +66,7 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.05);
       border-radius: 6px;
       overflow: hidden;
+      min-width: 800px;
     }
 
     th, td {
@@ -83,6 +83,7 @@
     label {
       display: inline-block;
       margin-bottom: 10px;
+      font-weight: 500;
     }
 
     .section {
@@ -93,14 +94,41 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.05);
     }
 
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
     @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
       input, button, select, textarea {
         width: 100%;
         margin: 10px 0;
+        font-size: 16px;
       }
 
       label {
         display: block;
+        margin-bottom: 6px;
+      }
+
+      .section {
+        padding: 16px;
+      }
+
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      table {
+        font-size: 14px;
       }
     }
   </style>
@@ -135,12 +163,14 @@
 
   <div class="section">
     <h3>📄 庫存記錄</h3>
-    <table>
-      <thead>
-        <tr><th>商品</th><th>進貨</th><th>出貨</th><th>現有庫存</th><th>成本</th><th>售價</th><th>供應商</th><th>類型</th><th>利潤</th><th>利潤率</th><th>操作</th></tr>
-      </thead>
-      <tbody id="report"></tbody>
-    </table>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>商品</th><th>進貨</th><th>出貨</th><th>現有庫存</th><th>成本</th><th>售價</th><th>供應商</th><th>類型</th><th>利潤</th><th>利潤率</th><th>操作</th></tr>
+        </thead>
+        <tbody id="report"></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
